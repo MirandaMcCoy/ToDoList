@@ -1,0 +1,10 @@
+{
+  "name": "electron_proj",
+  "version": "1.0.0",
+  "dependencies": {
+    "electron-prebuilt": "^1.4.13"
+  },
+  "scripts": {
+      "start": "electron main.js"
+  }
+}
