@@ -1,6 +1,8 @@
 const electron = require('electron');
 const {app, BrowserWindow, Menu} = electron;
 
+if (process)
+
 app.on('ready', () => {
     let win = new BrowserWindow({width:800, height: 600});
     win.loadURL('file://' + __dirname + '/index.html');
@@ -10,7 +12,7 @@ app.on('ready', () => {
     Menu.setApplicationMenu(mainMenu);
 });
 
-function createAddWindow(){
+function openAddWin(){
     let win = new BrowserWindow({width:400, height: 200});
     win.loadURL('file://' + __dirname + '/add.html');
 }
@@ -30,7 +32,7 @@ const menu = [
             {
                 label: 'Add Item',
                 click(){
-                    createAddWindow();
+                    openAddWin();
                 }
             },
             {
@@ -45,6 +47,9 @@ const menu = [
         ]
     },
     {
-        label: 'Developer Tools'
+        label: 'Developer Tools',
+        click(){
+            focusedWindow.toggleDevTools();
+        }
     }
 ]
