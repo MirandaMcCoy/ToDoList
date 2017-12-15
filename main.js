@@ -3,12 +3,14 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 var mainWindow;
 var addWindow;
 
+process.env.NODE_ENV = 'production'; // Put this into production
+
 // APP
 app.on('ready', () => {
-    mainWindow = new BrowserWindow({width:800, height: 600});
+    mainWindow = new BrowserWindow({width:800, height: 600}); // Create window
     mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-    const mainMenu = Menu.buildFromTemplate(menu);
+    const mainMenu = Menu.buildFromTemplate(menu); // Build menu
 
     Menu.setApplicationMenu(mainMenu);
 });
@@ -25,12 +27,16 @@ function createAddWindow(){
     addWindow.loadURL('file://' + __dirname + '/add.html');
 }
 
+// MENU
 const menu = [
     {
         label: 'File',
         submenu: [
             {
-                label: 'Open'
+                label: 'Open',
+                click(){
+                    mainWindow.webContents.send('item:open');
+                }
             }
         ]
     },
@@ -59,6 +65,7 @@ const menu = [
     }
 ]
 
+// If the project is not in production, show dev tools option
 if(process.env.NODE_ENV != 'production'){
     menu.push({
         label: 'Developer Tools',
